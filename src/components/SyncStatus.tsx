@@ -10,7 +10,7 @@ export function SyncBadge({ meta, now }: { meta: DatasetMeta; now: number }) {
   const color = state === 'fresh' ? 'bg-accent' : state === 'stale' ? 'bg-warn' : 'bg-danger';
   return (
     <div
-      className="flex items-center gap-2 rounded-md border border-line bg-panel px-2.5 py-1.5 font-mono text-[11px] text-muted"
+      className="flex items-center gap-2 rounded-md border border-line bg-panel px-2.5 py-1.5 font-mono text-[11px] whitespace-nowrap text-muted"
       title={`${t.sync.label}: ${formatDateTime(meta.generatedAt, locale)} · ${t.sync.nextHint}`}
     >
       <span className="relative flex size-2">
@@ -18,8 +18,10 @@ export function SyncBadge({ meta, now }: { meta: DatasetMeta; now: number }) {
         <span className={`relative inline-flex size-2 rounded-full ${color}`} />
       </span>
       <span className="hidden sm:inline text-faint">{t.sync.label}:</span>
+      <span className="sr-only sm:hidden">{t.sync.label}:</span>
       <time dateTime={meta.generatedAt} className="text-ink">
-        {relativeTime(meta.generatedAt, locale, now)}
+        <span className="sm:hidden">{relativeTime(meta.generatedAt, locale, now, 'narrow')}</span>
+        <span className="hidden sm:inline">{relativeTime(meta.generatedAt, locale, now)}</span>
       </time>
     </div>
   );

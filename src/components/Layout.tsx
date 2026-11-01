@@ -29,7 +29,7 @@ export function Header({ route, homeHref, aboutHref, privacyHref, right }: Heade
         <a href={homeHref} className="flex min-w-0 items-center gap-2.5" aria-label="Cyber Repo Radar — home">
           <RadarLogo size={30} />
           <span className="min-w-0">
-            <span className="block truncate font-mono text-sm font-bold tracking-[0.18em] text-ink">
+            <span className="block truncate font-mono text-xs font-bold tracking-[0.08em] text-ink sm:text-sm sm:tracking-[0.18em]">
               CYBER<span className="text-accent">_</span>REPO<span className="text-accent">_</span>RADAR
             </span>
             <span className="hidden truncate text-[11px] text-faint md:block">{t.header.tagline}</span>

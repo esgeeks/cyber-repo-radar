@@ -1,4 +1,4 @@
-import { useCallback, useSyncExternalStore } from 'react';
+import { useCallback, useMemo, useSyncExternalStore } from 'react';
 import { buildHash, parseHash, type HashState } from '../lib/url-state';
 
 function subscribe(cb: () => void) {
@@ -10,7 +10,8 @@ const getHash = () => window.location.hash;
 /** Router + filter state stored in the URL hash, so every view is shareable and works on static hosting. */
 export function useHashState() {
   const hash = useSyncExternalStore(subscribe, getHash, () => '');
-  const state = parseHash(hash);
+  // Memoized on the hash string so filters keep a stable identity between renders.
+  const state = useMemo(() => parseHash(hash), [hash]);
 
   const navigate = useCallback((next: HashState, { replace = false } = {}) => {
     const target = buildHash(next);

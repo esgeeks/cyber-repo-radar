@@ -127,7 +127,7 @@ export default function App() {
           favorite={favorites.has(route.fullName)}
           demo={dataset.meta.demo}
           onToggleFavorite={toggle}
-          onClose={() => navigate({ ...state, route: { name: 'home' } })}
+          onClose={() => navigate({ ...state, route: { name: 'home' } }, { replace: true })}
         />
       )}
 

@@ -8,9 +8,9 @@ const UNITS: [Intl.RelativeTimeFormatUnit, number][] = [
 ];
 
 /** "3 hours ago" / "hace 3 horas". */
-export function relativeTime(iso: string, locale: string, now: number = Date.now()): string {
+export function relativeTime(iso: string, locale: string, now: number = Date.now(), style: 'long' | 'narrow' = 'long'): string {
   const diff = new Date(iso).getTime() - now;
-  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto', style });
   for (const [unit, ms] of UNITS) {
     if (Math.abs(diff) >= ms) return rtf.format(Math.round(diff / ms), unit);
   }
