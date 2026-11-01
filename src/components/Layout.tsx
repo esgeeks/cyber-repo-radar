@@ -121,6 +121,7 @@ export function PrivacyPage() {
         {t.privacy.paragraphs.map((p) => (
           <p key={p}>{p}</p>
         ))}
+        {import.meta.env.VITE_CF_ANALYTICS_TOKEN && <p>{t.privacy.analytics}</p>}
       </div>
       <p className="mt-6 font-mono text-xs text-faint">{t.privacy.updated}</p>
     </article>

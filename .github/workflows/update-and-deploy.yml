@@ -55,9 +55,10 @@ jobs:
           VITE_ADSENSE_CLIENT: ${{ vars.ADSENSE_CLIENT }}
           VITE_ADSENSE_SLOT_TOP: ${{ vars.ADSENSE_SLOT_TOP }}
           VITE_ADSENSE_SLOT_FEED: ${{ vars.ADSENSE_SLOT_FEED }}
+          VITE_CF_ANALYTICS_TOKEN: ${{ vars.CF_ANALYTICS_TOKEN }}
         run: |
           # Empty repository variables must not override the defaults in .env
-          for v in VITE_SITE_URL VITE_ADSENSE_CLIENT VITE_ADSENSE_SLOT_TOP VITE_ADSENSE_SLOT_FEED; do
+          for v in VITE_SITE_URL VITE_ADSENSE_CLIENT VITE_ADSENSE_SLOT_TOP VITE_ADSENSE_SLOT_FEED VITE_CF_ANALYTICS_TOKEN; do
             if [ -z "${!v}" ]; then unset "$v"; fi
           done
           npm run build
