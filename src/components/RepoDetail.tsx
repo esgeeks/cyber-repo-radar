@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import { formatDateTime, relativeTime } from '../lib/format';
 import { languageColor } from '../lib/languages';
+import { useTranslatedText } from '../hooks/useTranslation';
 import type { Repo } from '../lib/types';
 import {
   AlertIcon,
@@ -48,6 +49,7 @@ function DateRow({ icon, label, iso, now, accent }: { icon: ReactNode; label: st
 export function RepoDetail({ repo, fullName, now, favorite, demo, onToggleFavorite, onClose }: Props) {
   const { t, locale } = useI18n();
   const ref = useRef<HTMLDialogElement>(null);
+  const translated = useTranslatedText(repo?.description ?? null);
 
   useEffect(() => {
     const dialog = ref.current;
@@ -110,9 +112,15 @@ export function RepoDetail({ repo, fullName, now, favorite, demo, onToggleFavori
             </div>
           ) : (
             <>
-              <p className={`text-[15px] leading-relaxed ${repo.description ? 'text-ink/90' : 'text-faint italic'}`}>
-                {repo.description ?? t.card.noDescription}
+              <p className={`text-[15px] leading-relaxed ${repo.description ? 'text-ink/90' : 'text-faint italic'}`} lang={translated ? 'es' : undefined}>
+                {translated ?? repo.description ?? t.card.noDescription}
               </p>
+              {translated && (
+                <p className="mt-2 border-l-2 border-line pl-3 text-sm text-muted">
+                  <span className="font-mono text-[11px] text-faint uppercase">{t.translate.original}: </span>
+                  {repo.description}
+                </p>
+              )}
 
               <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {[

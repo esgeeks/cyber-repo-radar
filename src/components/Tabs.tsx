@@ -4,7 +4,8 @@ import { TABS, type TabId } from '../lib/filters';
 
 interface Props {
   active: TabId;
-  counts: Record<TabId, number>;
+  /** null while the full dataset is still loading. */
+  counts: Record<TabId, number | null>;
   onSelect: (tab: TabId) => void;
 }
 
@@ -54,7 +55,7 @@ export function Tabs({ active, counts, onSelect }: Props) {
               <span
                 className={`rounded px-1.5 py-px text-[10.5px] ${selected ? 'bg-accent/15 text-accent' : 'bg-panel-2 text-faint'}`}
               >
-                {counts[tab]}
+                {counts[tab] ?? '…'}
               </span>
               {selected && <span className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-accent" aria-hidden="true" />}
             </button>

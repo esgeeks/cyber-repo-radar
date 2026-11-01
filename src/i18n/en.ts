@@ -115,6 +115,7 @@ const en = {
     body: 'Listing a repository is not an endorsement. New security tools and “PoC exploits” are a common way to spread malware. Read the code and run it only in an isolated environment.',
   },
   states: {
+    loadingFull: 'Loading the full dataset…',
     loading: 'Scanning dataset…',
     errorTitle: 'Could not load the data',
     errorBody: 'The dataset could not be downloaded. Check your connection and try again.',
@@ -157,6 +158,8 @@ const en = {
       'If advertising is enabled in the future (for example Google AdSense), Google and its partners may use cookies to show and measure ads. This policy will be updated and, where required by law, you will be asked for consent first.',
       'Links to repositories take you to github.com, which has its own privacy policy.',
     ],
+    analytics:
+      'We use Cloudflare Web Analytics to count visits. It does not use cookies or fingerprinting and does not track you across sites; it only collects aggregated data such as pages viewed, country and browser type.',
     updated: 'Last updated: November 2026',
   },
   categories: {
@@ -176,6 +179,15 @@ const en = {
     'ai-security': 'AI security',
   },
   ad: { label: 'Advertisement' },
+  translate: {
+    enable: 'Translate descriptions',
+    disable: 'Show original descriptions',
+    preparing: 'Downloading translator… {pct}%',
+    failed: 'Translation is not available in this browser',
+    badge: 'Translated',
+    hint: 'Automatic on-device translation (Chrome). Free and private.',
+    original: 'Original',
+  },
 };
 
 export default en;

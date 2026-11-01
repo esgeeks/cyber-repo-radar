@@ -1,7 +1,7 @@
 import { classify, detectFlags, type CategoryRules, DEFAULT_RULES } from './classify';
 import { normalizeRepo, type NormalizedRepo } from './normalize';
 import { DEFAULT_BLOCKLIST, rejectReason, type CompiledBlocklist, type RejectReason } from './quality';
-import type { CategoryId, GitHubRepoItem, Repo, Review } from './types';
+import type { CategoryId, Dataset, GitHubRepoItem, Repo, Review } from './types';
 
 export interface QueryResult {
   queryId: string;
@@ -145,4 +145,15 @@ export function buildRepos(results: QueryResult[], opts: BuildOptions): { repos:
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt) || a.id - b.id);
   stats.kept = repos.length;
   return { repos, stats };
+}
+
+export const RECENT_DAYS = 7;
+
+/** Repos created in the last `days` days, for the fast first load (recent.json). */
+export function recentSubset(dataset: Dataset, days: number = RECENT_DAYS): Dataset {
+  const cutoff = new Date(dataset.meta.generatedAt).getTime() - days * 86_400_000;
+  return {
+    meta: { ...dataset.meta, subset: { kind: 'recent', days } },
+    repos: dataset.repos.filter((r) => new Date(r.createdAt).getTime() >= cutoff),
+  };
 }

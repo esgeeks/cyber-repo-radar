@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Cyber Repo Radar — nuevos repositorios de ciberseguridad en GitHub</title>
+    <meta
+      name="description"
+      content="Radar en vivo de nuevos repos de ciberseguridad en GitHub: pentesting, OSINT, red y blue team, malware, bug bounty y seguridad de IA. Cada 3 horas."
+    />
+    <meta name="theme-color" content="#080D13" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="canonical" href="%VITE_SITE_URL%/es/" />
+    <link rel="alternate" hreflang="en" href="%VITE_SITE_URL%/" />
+    <link rel="alternate" hreflang="es" href="%VITE_SITE_URL%/es/" />
+    <link rel="alternate" hreflang="x-default" href="%VITE_SITE_URL%/" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cyber Repo Radar" />
+    <meta property="og:title" content="Cyber Repo Radar — nuevos repositorios de ciberseguridad en GitHub" />
+    <meta
+      property="og:description"
+      content="Descubre las nuevas herramientas de seguridad en GitHub: pentesting, OSINT, red/blue team, análisis de malware, bug bounty y seguridad de IA. Datos reales de la API de GitHub."
+    />
+    <meta property="og:url" content="%VITE_SITE_URL%/es/" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_LA" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Cyber Repo Radar",
+        "url": "%VITE_SITE_URL%/es/",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "es",
+        "isAccessibleForFree": true,
+        "description": "Radar en vivo de nuevos repositorios públicos de GitHub sobre ciberseguridad, actualizado cada ~3 horas con la GitHub REST Search API.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@type": "Organization", "name": "EsGeeks", "url": "https://www.esgeeks.com/" }
+      }
+    </script>
+    <link rel="preload" href="../data/recent.json" as="fetch" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="font-family: monospace; color: #d9e5ee; padding: 2rem">
+        Cyber Repo Radar needs JavaScript to display the repository list. /
+        Cyber Repo Radar necesita JavaScript para mostrar la lista de repositorios.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

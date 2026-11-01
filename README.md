@@ -5,7 +5,9 @@ Radar web público para descubrir **repositorios recientes de GitHub sobre ciber
 - **Datos reales**: todo sale de la [GitHub REST Search API](https://docs.github.com/rest/search/search#search-repositories). No se inventan repositorios, métricas ni fechas, y no se hace scraping de HTML.
 - **Sitio estático**: React + TypeScript + Tailwind CSS. Sin backend, sin base de datos y sin login.
 - **Actualización automática** cada ~3 horas con GitHub Actions, y despliegue en GitHub Pages.
-- **Bilingüe**: la interfaz está escrita originalmente en inglés, con español. Detecta el idioma del navegador y tiene un selector EN/ES.
+- **Bilingüe con URLs propias**: inglés en `/` y español en `/es/`, cada una con su título, descripción y `hreflang`. Quien tiene el navegador en español entra directo a `/es/`.
+- **Carga rápida**: primero se descargan solo los últimos 7 días (`recent.json`, ~150 KB comprimido) y el dataset completo llega en segundo plano.
+- **Traducción gratuita** de descripciones al español con la API integrada de Chrome (en el dispositivo, sin costo ni claves).
 - **Privacidad**: sin cookies propias ni analítica. Los favoritos se guardan en `localStorage`.
 
 > ⚠️ **Cobertura no exhaustiva.** El radar ejecuta un conjunto fijo de búsquedas (`config/queries.json`). GitHub devuelve como máximo 1000 resultados por búsqueda, los resultados varían entre ejecuciones y pueden quedar fuera repositorios sin topics o descripciones relevantes. La clasificación es automática y puede equivocarse.
@@ -24,9 +26,10 @@ Radar web público para descubrir **repositorios recientes de GitHub sobre ciber
 6. [Despliegue en GitHub Pages con `radar.esgeeks.com`](#despliegue-en-github-pages-con-radaresgeekscom)
 7. [Despliegue alternativo por FTP (opcional)](#despliegue-alternativo-por-ftp-opcional)
 8. [Publicidad (AdSense)](#publicidad-adsense)
-9. [Reseñas de EsGeeks](#reseñas-de-esgeeks)
-10. [Límites de la API y manejo de errores](#límites-de-la-api-y-manejo-de-errores)
-11. [Mantenimiento](#mantenimiento)
+9. [Analítica de visitas](#analítica-de-visitas)
+10. [Reseñas de EsGeeks](#reseñas-de-esgeeks)
+11. [Límites de la API y manejo de errores](#límites-de-la-api-y-manejo-de-errores)
+12. [Mantenimiento](#mantenimiento)
 
 ---
 
@@ -46,6 +49,8 @@ Radar web público para descubrir **repositorios recientes de GitHub sobre ciber
 | URLs compartibles | Los filtros y la vista de detalle viven en el hash: `#/repo/owner/name?tab=popular&cat=osint` |
 | Accesibilidad | Pestañas con teclado, `<dialog>` nativo para el detalle, foco visible, etiquetas ARIA, `prefers-reduced-motion` |
 | Modo demo | `#/?demo=1` carga un dataset **ficticio**, con una franja visible y los enlaces desactivados |
+| Idiomas | `/` en inglés y `/es/` en español, con `hreflang` y sitemap con alternativas. El selector EN/ES cambia de URL y conserva los filtros |
+| Traducción | En la interfaz en español y en Chrome 138+, el botón **Traducir descripciones** traduce en el propio dispositivo (gratis y privado). En otros navegadores se muestra el texto original |
 
 ## Arquitectura
 
@@ -65,9 +70,11 @@ src/
   components/         ← interfaz (RepoCard, RepoDetail, FilterPanel, Tabs…)
   hooks/              ← estado en la URL, favoritos, carga del dataset
   i18n/               ← textos en inglés (original) y español
+es/index.html         ← página en español (título, descripción y canonical propios)
 public/data/
   demo.json           ← dataset ficticio (versionado)
-  repos.json          ← dataset real (lo genera Actions; NO se versiona)
+  repos.json          ← dataset real completo (lo genera Actions; NO se versiona)
+  recent.json         ← últimos 7 días, para la primera carga (lo genera Actions; NO se versiona)
 .github/workflows/
   update-and-deploy.yml  ← cada 3 h: test → fetch → build → GitHub Pages (+ FTP opcional)
   ci.yml                 ← tests + build en PRs y ramas
@@ -233,6 +240,22 @@ Los espacios publicitarios están preparados pero **apagados**: no se muestra na
 3. `ads.txt`: en un subdominio, AdSense lo busca en el dominio raíz (`esgeeks.com/ads.txt`), que ya tienes.
 4. Para visitantes del EEE y Reino Unido, Google exige un CMP certificado; actívalo desde AdSense (*Privacidad y mensajes*).
 5. Actualiza la política de privacidad (`src/i18n/*.ts → privacy`).
+
+## Analítica de visitas
+
+El sitio trae soporte para **Cloudflare Web Analytics**, que es gratis y **no usa cookies**, así que no necesita banner de consentimiento. Está apagado hasta que pongas tu token.
+
+1. Crea una cuenta gratis en Cloudflare. No hace falta mover el DNS a Cloudflare.
+2. Ve a *Analytics & Logs → Web Analytics → Add a site*, escribe `radar.esgeeks.com` y elige la opción **manual (JS snippet)**.
+3. Del código que te muestra, copia solo el valor de `"token"`: 32 caracteres hexadecimales.
+4. En GitHub: *Settings → Secrets and variables → Actions → Variables → New repository variable* → `CF_ANALYTICS_TOKEN` = ese token.
+5. Ejecuta *Actions → Update data & deploy → Run workflow*, o espera la siguiente ejecución.
+
+Al activarlo, el build agrega el script en `/` y `/es/`, ajusta la Content-Security-Policy y suma un párrafo a la política de privacidad.
+
+Complementos recomendados: **Google Search Console** (verifica `radar.esgeeks.com` con un registro `TXT` en el Zone Editor y envía `sitemap.xml`) para ver búsquedas, clics e indexación.
+
+Si prefieres **Google Analytics 4**, ten en cuenta que usa cookies: para visitantes de Europa y Reino Unido necesitas el banner de consentimiento, igual que con AdSense.
 
 ## Reseñas de EsGeeks
 

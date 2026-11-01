@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { interpolate, useI18n } from '../i18n';
 import { compactNumber, formatDate, relativeTime } from '../lib/format';
 import { languageColor } from '../lib/languages';
+import { useTranslatedText } from '../hooks/useTranslation';
 import type { Repo } from '../lib/types';
 import { AlertIcon, BirthIcon, BookIcon, ExternalIcon, ForkIcon, PulseIcon, StarIcon } from './Icons';
 
@@ -20,6 +21,7 @@ function RepoCardImpl({ repo, now, favorite, demo, detailHref, onToggleFavorite 
   const { t, locale } = useI18n();
   const favLabel = interpolate(favorite ? t.card.removeFavorite : t.card.addFavorite, { name: repo.fullName });
   const extraTopics = repo.topics.length - MAX_TOPICS;
+  const translated = useTranslatedText(repo.description);
 
   return (
     <article className="group panel relative flex flex-col p-4 transition-colors hover:border-line-strong animate-fade-in">
@@ -65,9 +67,14 @@ function RepoCardImpl({ repo, now, favorite, demo, detailHref, onToggleFavorite 
         </button>
       </header>
 
-      <p className={`mt-3 line-clamp-3 text-sm leading-relaxed ${repo.description ? 'text-ink/85' : 'text-faint italic'}`}>
-        {repo.description ?? t.card.noDescription}
+      <p
+        className={`mt-3 line-clamp-3 text-sm leading-relaxed ${repo.description ? 'text-ink/85' : 'text-faint italic'}`}
+        title={translated ? `${t.translate.original}: ${repo.description}` : undefined}
+        lang={translated ? 'es' : undefined}
+      >
+        {translated ?? repo.description ?? t.card.noDescription}
       </p>
+      {translated && <p className="mt-1 font-mono text-[10.5px] text-faint">↻ {t.translate.badge}</p>}
 
       {(repo.flags.includes('poc') || repo.review) && (
         <div className="mt-3 flex flex-wrap gap-1.5">

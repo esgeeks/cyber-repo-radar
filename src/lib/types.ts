@@ -71,6 +71,8 @@ export interface DatasetMeta {
   repoCount: number;
   partial: boolean;
   notes: string[];
+  /** Present on recent.json: only repos created in the last `days` days (fast first load). */
+  subset?: { kind: 'recent'; days: number };
 }
 
 export interface Dataset {

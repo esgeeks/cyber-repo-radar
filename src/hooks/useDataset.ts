@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
+import { ROOT } from '../lib/paths';
 import type { Dataset } from '../lib/types';
 
 export type DatasetState =
   | { status: 'loading' }
   | { status: 'error'; message: string }
-  | { status: 'ready'; data: Dataset };
+  /** `complete` is false while only recent.json (last 7 days) is loaded. */
+  | { status: 'ready'; data: Dataset; complete: boolean; fullError?: string };
 
-const base = import.meta.env.BASE_URL;
-export const REAL_URL = `${base}data/repos.json`;
-export const DEMO_URL = `${base}data/demo.json`;
+export const REAL_URL = `${ROOT}data/repos.json`;
+export const RECENT_URL = `${ROOT}data/recent.json`;
+export const DEMO_URL = `${ROOT}data/demo.json`;
 
 export function isDataset(value: unknown): value is Dataset {
   const d = value as Dataset;
@@ -26,7 +28,8 @@ async function load(url: string): Promise<Dataset> {
 }
 
 /**
- * Loads the real dataset, or the fictional demo dataset when `demo` is true.
+ * Loads data in two phases: recent.json (small, last 7 days) for a fast first paint, then the
+ * full repos.json in the background. `demo` loads the fictional dataset instead.
  * In development, falls back to the demo dataset if no real data has been generated yet.
  */
 export function useDataset(demo: boolean) {
@@ -37,20 +40,44 @@ export function useDataset(demo: boolean) {
     let cancelled = false;
     setState({ status: 'loading' });
     (async () => {
+      if (demo) {
+        try {
+          const data = await load(DEMO_URL);
+          if (!cancelled) setState({ status: 'ready', data, complete: true });
+        } catch (err) {
+          if (!cancelled) setState({ status: 'error', message: (err as Error).message });
+        }
+        return;
+      }
+
+      const full = load(REAL_URL);
+      full.catch(() => {}); // handled below
       try {
-        const data = await load(demo ? DEMO_URL : REAL_URL);
-        if (!cancelled) setState({ status: 'ready', data });
+        const recent = await load(RECENT_URL);
+        if (!cancelled && recent.meta.subset) setState({ status: 'ready', data: recent, complete: false });
+      } catch {
+        /* older deployments have no recent.json: wait for the full file */
+      }
+      try {
+        const data = await full;
+        if (!cancelled) setState({ status: 'ready', data, complete: true });
       } catch (err) {
-        if (!demo && import.meta.env.DEV) {
+        if (cancelled) return;
+        if (import.meta.env.DEV) {
           try {
             const data = await load(DEMO_URL);
-            if (!cancelled) setState({ status: 'ready', data });
+            if (!cancelled) setState({ status: 'ready', data, complete: true });
             return;
           } catch {
             /* fall through */
           }
         }
-        if (!cancelled) setState({ status: 'error', message: (err as Error).message });
+        setState((prev) =>
+          // Keep showing the recent subset if only the full file failed.
+          prev.status === 'ready'
+            ? { ...prev, fullError: (err as Error).message }
+            : { status: 'error', message: (err as Error).message },
+        );
       }
     })();
     return () => {
