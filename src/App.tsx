@@ -12,6 +12,7 @@ import { useDataset } from './hooks/useDataset';
 import { useDebounced } from './hooks/useDebounced';
 import { useFavorites } from './hooks/useFavorites';
 import { useHashState } from './hooks/useHashState';
+import { useTranslationControl } from './hooks/useTranslation';
 import { interpolate, useI18n } from './i18n';
 import {
   applyFilters,
@@ -29,6 +30,8 @@ import type { DatasetMeta, Repo } from './lib/types';
 import { buildHash, type HashState } from './lib/url-state';
 
 const PAGE_SIZE = 24;
+/** Tabs fully answerable with recent.json (repos created in the last 7 days). */
+const COVERED_BY_RECENT = new Set<TabId>(['new24h', 'week']);
 const SLOT_TOP = import.meta.env.VITE_ADSENSE_SLOT_TOP;
 const SLOT_FEED = import.meta.env.VITE_ADSENSE_SLOT_FEED;
 
@@ -109,6 +112,9 @@ export default function App() {
             repos={data.data.repos}
             generatedAt={data.data.meta.generatedAt}
             meta={data.data.meta}
+            complete={data.complete}
+            fullError={data.fullError}
+            onRetry={retry}
             filters={filters}
             favorites={favorites}
             onToggleFavorite={toggle}
@@ -118,7 +124,7 @@ export default function App() {
         )}
       </main>
 
-      {route.name === 'repo' && dataset && (
+      {route.name === 'repo' && dataset && (data.status === 'ready' && (data.complete || dataset.repos.some((r) => r.fullName.toLowerCase() === route.fullName.toLowerCase()))) && (
         <RepoDetail
           key={route.fullName}
           fullName={route.fullName}
@@ -140,6 +146,9 @@ interface RadarProps {
   repos: Repo[];
   generatedAt: string;
   meta: DatasetMeta;
+  complete: boolean;
+  fullError?: string;
+  onRetry: () => void;
   filters: Filters;
   favorites: Set<string>;
   onToggleFavorite: (fullName: string) => void;
@@ -147,7 +156,7 @@ interface RadarProps {
   detailHref: (fullName: string) => string;
 }
 
-function Radar({ repos, generatedAt, meta, filters, favorites, onToggleFavorite, onFilters, detailHref }: RadarProps) {
+function Radar({ repos, generatedAt, meta, complete, fullError, onRetry, filters, favorites, onToggleFavorite, onFilters, detailHref }: RadarProps) {
   const { t, locale } = useI18n();
   // Time windows are measured from the dataset generation time, so tabs stay consistent with the data.
   const now = useMemo(() => new Date(generatedAt).getTime(), [generatedAt]);
@@ -190,8 +199,8 @@ function Radar({ repos, generatedAt, meta, filters, favorites, onToggleFavorite,
   );
 
   const tabCounts = useMemo(() => {
-    const counts = {} as Record<TabId, number>;
-    for (const tab of TABS) counts[tab] = applyFilters(repos, { ...effective, tab }, now, favorites).length;
+    const counts = {} as Record<TabId, number | null>;
+    for (const tab of TABS) counts[tab] = complete || COVERED_BY_RECENT.has(tab) ? applyFilters(repos, { ...effective, tab }, now, favorites).length : null;
     return counts;
   }, [repos, effective, now, favorites]);
 
@@ -215,6 +224,7 @@ function Radar({ repos, generatedAt, meta, filters, favorites, onToggleFavorite,
     Number(filters.category !== 'all') + Number(filters.language !== 'all') + Number(filters.minStars > 0) + Number(filters.dateRange > 0);
   const stale = !meta.demo && freshness(generatedAt) !== 'fresh';
   const shown = results.slice(0, visible);
+  const waitingForFull = !complete && !COVERED_BY_RECENT.has(filters.tab);
 
   return (
     <div className="space-y-6">
@@ -303,14 +313,34 @@ function Radar({ repos, generatedAt, meta, filters, favorites, onToggleFavorite,
         </aside>
 
         <section id="results-panel" role="tabpanel" aria-labelledby={`tab-${filters.tab}`} aria-live="polite" aria-busy={query !== debouncedQuery}>
+          <TranslateToggle />
           <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
             <p className="text-sm text-muted">{t.tabHints[filters.tab]}</p>
             <p className="font-mono text-xs text-faint">
-              {results.length === 1 ? t.filters.oneResult : interpolate(t.filters.results, { count: results.length.toLocaleString(locale) })}
+              {waitingForFull
+                ? '…'
+                : results.length === 1
+                  ? t.filters.oneResult
+                  : interpolate(t.filters.results, { count: results.length.toLocaleString(locale) })}
             </p>
           </div>
 
-          {results.length === 0 ? (
+          {waitingForFull && fullError ? (
+            <StateMessage
+              tone="error"
+              code={`ERR: ${fullError}`}
+              title={t.states.errorTitle}
+              actions={
+                <button type="button" className="btn-primary" onClick={onRetry}>
+                  {t.states.retry}
+                </button>
+              }
+            >
+              {t.states.errorBody}
+            </StateMessage>
+          ) : waitingForFull ? (
+            <SkeletonGrid label={t.states.loadingFull} />
+          ) : results.length === 0 ? (
             <StateMessage code="0 matches" title={t.states.emptyTitle}>
               <p>{filters.tab === 'favorites' && favorites.size === 0 ? t.states.emptyFavorites : t.states.emptyBody}</p>
               {stale && filters.tab !== 'favorites' && <p className="mt-2 text-warn">{t.states.emptyStale}</p>}
@@ -364,5 +394,26 @@ function FeedItem({ index, children }: { index: number; children: ReactNode }) {
       </div>
       {children}
     </>
+  );
+}
+
+/** Shown only for the Spanish UI in browsers with Chrome's built-in Translator API. */
+function TranslateToggle() {
+  const { t } = useI18n();
+  const { available, status, progress, toggle } = useTranslationControl();
+  if (!available) return null;
+  const label =
+    status === 'on'
+      ? t.translate.disable
+      : status === 'preparing'
+        ? interpolate(t.translate.preparing, { pct: Math.round(progress * 100) })
+        : t.translate.enable;
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-3 rounded-md border border-line bg-panel/60 px-3 py-2">
+      <button type="button" className="btn-ghost" aria-pressed={status === 'on'} disabled={status === 'preparing'} onClick={toggle}>
+        <span aria-hidden="true">↻</span> {label}
+      </button>
+      <span className="text-xs text-faint">{status === 'failed' ? t.translate.failed : t.translate.hint}</span>
+    </div>
   );
 }

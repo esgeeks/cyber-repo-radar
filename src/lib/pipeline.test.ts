@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { makeItem, makeRepo } from '../test/factories';
-import { buildRepos, type QueryResult } from './pipeline';
+import { buildRepos, recentSubset, type QueryResult } from './pipeline';
 
 const NOW = new Date('2026-11-01T12:00:00.000Z');
 const result = (items: QueryResult['items'], category: QueryResult['category'] = 'osint', trust = false): QueryResult => ({
@@ -91,5 +91,17 @@ describe('buildRepos', () => {
       now: NOW,
     });
     expect(repos[0]!.flags).toEqual(['poc']);
+  });
+});
+
+describe('recentSubset', () => {
+  it('keeps only repos created in the window and marks the subset', () => {
+    const meta = { schemaVersion: 1 as const, generatedAt: NOW.toISOString(), demo: false, queriesTotal: 1, queriesFailed: 0, itemsFetched: 2, repoCount: 2, partial: false, notes: [] };
+    const fresh = makeRepo({ id: 1, createdAt: '2026-10-30T00:00:00.000Z' });
+    const old = makeRepo({ id: 2, createdAt: '2026-10-01T00:00:00.000Z' });
+    const sub = recentSubset({ meta, repos: [fresh, old] }, 7);
+    expect(sub.repos.map((r) => r.id)).toEqual([1]);
+    expect(sub.meta.subset).toEqual({ kind: 'recent', days: 7 });
+    expect(sub.meta.repoCount).toBe(2);
   });
 });
