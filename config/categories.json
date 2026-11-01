@@ -1,0 +1,61 @@
+{
+  "$comment": "Classification rules. topics = exact GitHub topics (weight 3). keywords = phrases matched as whole words in the repo name (weight 2) or description (weight 1). A repo joins every category scoring >= 2.",
+  "categories": {
+    "cybersecurity": {
+      "topics": ["cybersecurity", "cyber-security", "security", "infosec", "information-security", "security-tools", "hacking-tools", "security-tool", "appsec", "devsecops", "vulnerability-scanner", "vulnerability", "cve"],
+      "keywords": ["cybersecurity", "cyber security", "infosec", "security tool", "security scanner", "vulnerability scanner", "vulnerability", "cve"]
+    },
+    "ethical-hacking": {
+      "topics": ["ethical-hacking", "hacking", "hacking-tool", "hacker", "kali-linux", "ctf", "ctf-tools", "capture-the-flag", "hacktoolkit"],
+      "keywords": ["ethical hacking", "ethical hacker", "hacking", "kali linux", "ctf", "capture the flag", "hacktricks"]
+    },
+    "pentesting": {
+      "topics": ["pentesting", "penetration-testing", "pentest", "pentest-tool", "pentesting-tools", "penetration-testing-tools", "exploitation", "exploit", "privilege-escalation", "post-exploitation", "active-directory"],
+      "keywords": ["pentest", "pentesting", "penetration testing", "penetration test", "exploit", "privilege escalation", "post-exploitation", "active directory"]
+    },
+    "osint": {
+      "topics": ["osint", "osint-tool", "osint-tools", "osint-framework", "reconnaissance", "recon", "open-source-intelligence", "socmint", "geoint"],
+      "keywords": ["osint", "open source intelligence", "reconnaissance", "recon", "socmint", "geoint", "username search", "people search"]
+    },
+    "threat-intelligence": {
+      "topics": ["threat-intelligence", "threat-intel", "cti", "ioc", "iocs", "threat-hunting", "mitre-attack", "stix", "misp", "yara"],
+      "keywords": ["threat intelligence", "threat intel", "cti", "ioc", "iocs", "indicators of compromise", "threat hunting", "mitre att&ck", "mitre attack", "stix", "misp"]
+    },
+    "malware-analysis": {
+      "topics": ["malware-analysis", "malware", "malware-research", "sandbox", "yara-rules", "ransomware", "malware-detection", "dynamic-analysis", "static-analysis"],
+      "keywords": ["malware analysis", "malware", "ransomware", "sandbox", "yara rule", "yara rules", "malware sample", "malware detection"]
+    },
+    "reverse-engineering": {
+      "topics": ["reverse-engineering", "reversing", "disassembler", "decompiler", "ghidra", "ida-pro", "binary-ninja", "radare2", "frida", "binary-analysis", "firmware-analysis"],
+      "keywords": ["reverse engineering", "reversing", "disassembler", "decompiler", "ghidra", "ida pro", "binary ninja", "radare2", "frida", "binary analysis", "firmware analysis"]
+    },
+    "digital-forensics": {
+      "topics": ["digital-forensics", "forensics", "dfir", "incident-response", "memory-forensics", "volatility", "forensic-analysis", "disk-forensics"],
+      "keywords": ["digital forensics", "forensics", "forensic", "dfir", "incident response", "memory forensics", "volatility", "triage"]
+    },
+    "blue-team": {
+      "topics": ["blue-team", "blueteam", "soc", "siem", "detection-engineering", "sigma", "sigma-rules", "edr", "wazuh", "elastic-security", "security-monitoring", "hardening"],
+      "keywords": ["blue team", "blueteam", "soc", "siem", "detection engineering", "detection rules", "sigma rules", "edr", "wazuh", "hardening", "security monitoring"]
+    },
+    "red-team": {
+      "topics": ["red-team", "redteam", "red-teaming", "c2", "command-and-control", "c2-framework", "adversary-emulation", "evasion", "phishing", "initial-access"],
+      "keywords": ["red team", "redteam", "red teaming", "c2", "command and control", "adversary emulation", "evasion", "phishing simulation", "initial access"]
+    },
+    "bug-bounty": {
+      "topics": ["bug-bounty", "bugbounty", "bug-bounty-tools", "bugbounty-tool", "subdomain-enumeration", "subdomain-takeover", "hackerone", "bugcrowd", "fuzzing", "fuzzer"],
+      "keywords": ["bug bounty", "bugbounty", "subdomain enumeration", "subdomain takeover", "hackerone", "bugcrowd", "fuzzing", "fuzzer"]
+    },
+    "cloud-security": {
+      "topics": ["cloud-security", "aws-security", "azure-security", "gcp-security", "kubernetes-security", "container-security", "cspm", "iam", "cloudsec", "docker-security"],
+      "keywords": ["cloud security", "aws security", "azure security", "gcp security", "kubernetes security", "container security", "cspm", "iam misconfiguration", "s3 bucket"]
+    },
+    "web-security": {
+      "topics": ["web-security", "websecurity", "xss", "sql-injection", "sqli", "ssrf", "csrf", "owasp", "burp-suite", "burpsuite", "burp-extensions", "waf", "api-security"],
+      "keywords": ["web security", "xss", "cross-site scripting", "sql injection", "sqli", "ssrf", "csrf", "owasp", "burp suite", "burp extension", "waf", "api security"]
+    },
+    "ai-security": {
+      "topics": ["ai-security", "llm-security", "prompt-injection", "ai-red-teaming", "llm-red-teaming", "ai-red-team", "jailbreak", "llm-jailbreak", "ai-safety-tools", "mcp-security", "ai-pentest", "ai-pentesting", "agentic-security"],
+      "keywords": ["ai security", "llm security", "prompt injection", "ai red team", "ai red teaming", "llm red team", "llm red teaming", "llm jailbreak", "jailbreak", "mcp security", "ai pentest", "ai pentesting", "ai-powered pentest", "autonomous pentest", "autonomous pentesting", "pentest agent", "pentesting agent", "agentic pentest", "agentic red team", "hacking agent"]
+    }
+  }
+}

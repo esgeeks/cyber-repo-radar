@@ -1,0 +1,98 @@
+# Fetches fresh data from the GitHub REST Search API every ~3 hours, builds the static site
+# and deploys it to GitHub Pages. Optionally mirrors the build to an FTP/FTPS host.
+#
+# Security:
+# - Uses only the built-in GITHUB_TOKEN (read-only). No personal tokens are needed.
+# - Tokens and FTP credentials live in GitHub Actions secrets and are never written into the build.
+# - The pipeline only reads repository METADATA; it never clones, installs or runs code from discovered repos.
+name: Update data & deploy
+
+on:
+  schedule:
+    - cron: '17 */3 * * *' # every 3 hours at minute 17 (UTC)
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      FTP_ENABLED: ${{ secrets.FTP_HOST != '' }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Fetch repositories from the GitHub Search API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -n "$SITE_URL" ]; then BASE="${SITE_URL%/}"; else BASE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}"; fi
+          export PREVIOUS_DATA_URL="$BASE/data/repos.json"
+          npm run fetch-data
+
+      - name: Build
+        env:
+          VITE_SITE_URL: ${{ vars.SITE_URL }}
+          VITE_ADSENSE_CLIENT: ${{ vars.ADSENSE_CLIENT }}
+          VITE_ADSENSE_SLOT_TOP: ${{ vars.ADSENSE_SLOT_TOP }}
+          VITE_ADSENSE_SLOT_FEED: ${{ vars.ADSENSE_SLOT_FEED }}
+        run: |
+          # Empty repository variables must not override the defaults in .env
+          for v in VITE_SITE_URL VITE_ADSENSE_CLIENT VITE_ADSENSE_SLOT_TOP VITE_ADSENSE_SLOT_FEED; do
+            if [ -z "${!v}" ]; then unset "$v"; fi
+          done
+          npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+      # Optional: mirror the build to shared hosting (e.g. cPanel) over FTPS.
+      # Runs only when the FTP_HOST secret exists. Use an FTP account restricted to the target folder.
+      - name: Deploy to FTP (optional)
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ vars.FTP_REMOTE_DIR || '/' }}
+        if: env.FTP_ENABLED == 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          lftp -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate true; set net:max-retries 3; \
+            mirror --reverse --delete --verbose --parallel=4 dist/ '$FTP_REMOTE_DIR'; quit" \
+            -u "$FTP_USER" --env-password "$FTP_HOST"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
