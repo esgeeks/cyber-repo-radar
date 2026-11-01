@@ -7,14 +7,14 @@
  * Env:
  *   GITHUB_TOKEN        token for the Search API (Actions' built-in token is enough). Optional locally.
  *   PREVIOUS_DATA_URL   URL of the currently published repos.json, used to keep `firstSeen` history.
- *   OUTPUT              output path (default public/data/repos.json)
+ *   OUTPUT              output path (default public/data/repos.json); recent.json is written next to it
  *   MAX_QUERIES         only run the first N queries (handy for local testing without a token)
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { dirname, join } from 'node:path';
 import queriesConfig from '../config/queries.json';
 import reviewsConfig from '../config/reviews.json';
-import { buildRepos, type QueryResult } from '../src/lib/pipeline';
+import { buildRepos, recentSubset, RECENT_DAYS, type QueryResult } from '../src/lib/pipeline';
 import { resolveQueries, type QueriesConfig } from '../src/lib/queries';
 import { parseReviews, type ReviewsConfig } from '../src/lib/reviews';
 import type { Dataset, Repo } from '../src/lib/types';
@@ -127,6 +127,10 @@ async function main() {
 
   await mkdir(dirname(OUTPUT), { recursive: true });
   await writeFile(OUTPUT, JSON.stringify(dataset));
+  // Small file with the last 7 days only, so the first paint does not wait for the full dataset.
+  const recent = recentSubset(dataset, RECENT_DAYS);
+  await writeFile(join(dirname(OUTPUT), 'recent.json'), JSON.stringify(recent));
+  log(`✓ Wrote ${recent.repos.length} repos to recent.json`);
   log(
     `✓ Wrote ${repos.length} repos to ${OUTPUT} — fetched ${stats.itemsFetched}, unique ${stats.unique}, ` +
       `retained ${stats.retained}, rejected ${JSON.stringify(stats.rejected)}`,

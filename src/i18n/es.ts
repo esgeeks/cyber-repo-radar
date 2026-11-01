@@ -117,6 +117,7 @@ const es: Messages = {
     body: 'Listar un repositorio no significa respaldarlo. Las herramientas de seguridad nuevas y los “PoC de exploits” son una vía común para distribuir malware. Lee el código y ejecútalo solo en un entorno aislado.',
   },
   states: {
+    loadingFull: 'Cargando el dataset completo…',
     loading: 'Escaneando dataset…',
     errorTitle: 'No se pudieron cargar los datos',
     errorBody: 'No se pudo descargar el dataset. Revisa tu conexión e inténtalo de nuevo.',
@@ -159,6 +160,8 @@ const es: Messages = {
       'Si en el futuro se activa publicidad (por ejemplo Google AdSense), Google y sus socios podrían usar cookies para mostrar y medir anuncios. Esta política se actualizará y, cuando la ley lo exija, se te pedirá consentimiento antes.',
       'Los enlaces a repositorios te llevan a github.com, que tiene su propia política de privacidad.',
     ],
+    analytics:
+      'Usamos Cloudflare Web Analytics para contar visitas. No usa cookies ni huellas digitales y no te rastrea entre sitios; solo recoge datos agregados como páginas vistas, país y tipo de navegador.',
     updated: 'Última actualización: noviembre de 2026',
   },
   categories: {
@@ -178,6 +181,15 @@ const es: Messages = {
     'ai-security': 'Seguridad de IA',
   },
   ad: { label: 'Publicidad' },
+  translate: {
+    enable: 'Traducir descripciones',
+    disable: 'Ver descripciones originales',
+    preparing: 'Descargando traductor… {pct}%',
+    failed: 'La traducción no está disponible en este navegador',
+    badge: 'Traducido',
+    hint: 'Traducción automática en tu dispositivo (Chrome). Gratis y privada.',
+    original: 'Original',
+  },
 };
 
 export default es;
