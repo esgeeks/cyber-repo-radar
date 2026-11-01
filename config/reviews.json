@@ -1,0 +1,5 @@
+{
+  "$comment": "Repos reviewed on your blog. Key = owner/name exactly as on GitHub. The radar shows a 'Reviewed on EsGeeks' badge linking to the article. Only https URLs on allowedHosts (or their subdomains) are accepted. Example entry: \"owner/repo\": { \"url\": \"https://www.esgeeks.com/article/\", \"title\": \"Article title\" }",
+  "allowedHosts": ["esgeeks.com"],
+  "reviews": {}
+}

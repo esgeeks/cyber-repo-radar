@@ -1,0 +1,20 @@
+{
+  "$comment": "Quality filters. owners/repos are matched case-insensitively. descriptionPatterns are JavaScript regular expressions (case-insensitive) tested against name + description. Add entries here to hide spam or malicious repositories.",
+  "owners": [],
+  "repos": [],
+  "descriptionPatterns": [
+    "free\\s+(robux|v-?bucks|followers|likes|diamonds|gems|coins)",
+    "\\b(robux|v-?bucks)\\s+(generator|hack)",
+    "\\b(aimbot|wallhack|triggerbot|esp\\s+hack|game\\s+cheat|cheat\\s+menu|mod\\s+menu)\\b",
+    "\\b(cracked\\s+(version|software|apk|game|app)|keygen|serial\\s+key|license\\s+key\\s+generator|windows\\s+activator|office\\s+activator)\\b",
+    "\\bhack\\s+(any\\s+)?(instagram|facebook|whatsapp|snapchat|tiktok|gmail)\\s+(account|password)",
+    "\\b(account|password)\\s+(hacker|cracker)\\s+(for\\s+)?(instagram|facebook|whatsapp|snapchat|tiktok)",
+    "\\b(token|password|cookie|discord|crypto|wallet)\\s+(grabber|stealer|drainer)\\b",
+    "\\b(fud|undetectable)\\s+(crypter|rat|stealer|ransomware|payload)\\b",
+    "\\bhwid\\s*spoofer\\b",
+    "\\b(sms|call|email)\\s+bomber\\b",
+    "\\bclipper\\b.*\\b(crypto|bitcoin|wallet)\\b",
+    "\\bdownload\\s+(now|here|free)\\b",
+    "\\b(telegram|t\\.me)\\b.*\\b(buy|price|purchase|sell)\\b"
+  ]
+}

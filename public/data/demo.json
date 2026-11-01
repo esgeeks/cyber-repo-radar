@@ -1,0 +1,687 @@
+{
+ "meta": {
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-01T12:00:00.000Z",
+  "demo": true,
+  "queriesTotal": 0,
+  "queriesFailed": 0,
+  "itemsFetched": 0,
+  "repoCount": 25,
+  "partial": false,
+  "notes": [
+   "FICTIONAL DEMO DATASET — these repositories do not exist."
+  ]
+ },
+ "repos": [
+  {
+   "id": 900000000,
+   "fullName": "demo-ficticio/ficticio-recon-sweeper",
+   "owner": "demo-ficticio",
+   "name": "ficticio-recon-sweeper",
+   "url": "https://demo-ficticio.invalid/ficticio-recon-sweeper",
+   "description": "[DEMO] Fictional subdomain and port reconnaissance pipeline for demo purposes.",
+   "language": "Go",
+   "stars": 42,
+   "forks": 5,
+   "openIssues": 2,
+   "topics": [
+    "bug-bounty",
+    "osint",
+    "recon"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-11-01T09:00:00.000Z",
+   "pushedAt": "2026-11-01T11:00:00.000Z",
+   "updatedAt": "2026-11-01T11:00:00.000Z",
+   "firstSeen": "2026-11-01T09:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "osint",
+    "bug-bounty"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000001,
+   "fullName": "demo-ficticio/ficticio-llm-guard-probe",
+   "owner": "demo-ficticio",
+   "name": "ficticio-llm-guard-probe",
+   "url": "https://demo-ficticio.invalid/ficticio-llm-guard-probe",
+   "description": "[DEMO] Fictional prompt injection test harness for LLM apps.",
+   "language": "Python",
+   "stars": 128,
+   "forks": 14,
+   "openIssues": 5,
+   "topics": [
+    "llm-security",
+    "prompt-injection"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-11-01T03:00:00.000Z",
+   "pushedAt": "2026-11-01T10:00:00.000Z",
+   "updatedAt": "2026-11-01T10:00:00.000Z",
+   "firstSeen": "2026-11-01T03:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "ai-security"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000002,
+   "fullName": "demo-ficticio/ficticio-agentic-pentest-lab",
+   "owner": "demo-ficticio",
+   "name": "ficticio-agentic-pentest-lab",
+   "url": "https://demo-ficticio.invalid/ficticio-agentic-pentest-lab",
+   "description": "[DEMO] Fictional autonomous pentest agent lab environment.",
+   "language": "TypeScript",
+   "stars": 310,
+   "forks": 33,
+   "openIssues": 11,
+   "topics": [
+    "agents",
+    "ai-pentest",
+    "pentesting"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-31T16:00:00.000Z",
+   "pushedAt": "2026-11-01T08:00:00.000Z",
+   "updatedAt": "2026-11-01T08:00:00.000Z",
+   "firstSeen": "2026-10-31T16:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "ai-security",
+    "pentesting"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000003,
+   "fullName": "demo-ficticio/ficticio-sigma-pack-mini",
+   "owner": "demo-ficticio",
+   "name": "ficticio-sigma-pack-mini",
+   "url": "https://demo-ficticio.invalid/ficticio-sigma-pack-mini",
+   "description": "[DEMO] Fictional collection of detection rules for a SIEM demo.",
+   "language": "YARA",
+   "stars": 18,
+   "forks": 2,
+   "openIssues": 1,
+   "topics": [
+    "detection-engineering",
+    "sigma-rules"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-10-31T06:00:00.000Z",
+   "pushedAt": "2026-11-01T06:00:00.000Z",
+   "updatedAt": "2026-11-01T06:00:00.000Z",
+   "firstSeen": "2026-10-31T06:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "blue-team",
+    "threat-intelligence"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000004,
+   "fullName": "demo-ficticio/ficticio-cve-2026-00000-poc",
+   "owner": "demo-ficticio",
+   "name": "ficticio-cve-2026-00000-poc",
+   "url": "https://demo-ficticio.invalid/ficticio-cve-2026-00000-poc",
+   "description": "[DEMO] Fictional proof of concept to show the PoC warning badge. Not a real CVE.",
+   "language": "Python",
+   "stars": 77,
+   "forks": 21,
+   "openIssues": 7,
+   "topics": [
+    "cve",
+    "exploit",
+    "poc"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-30T20:00:00.000Z",
+   "pushedAt": "2026-10-30T20:00:00.000Z",
+   "updatedAt": "2026-10-30T20:00:00.000Z",
+   "firstSeen": "2026-10-30T20:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "pentesting"
+   ],
+   "flags": [
+    "poc"
+   ]
+  },
+  {
+   "id": 900000005,
+   "fullName": "demo-ficticio/ficticio-mem-triage-kit",
+   "owner": "demo-ficticio",
+   "name": "ficticio-mem-triage-kit",
+   "url": "https://demo-ficticio.invalid/ficticio-mem-triage-kit",
+   "description": "[DEMO] Fictional memory forensics triage helpers.",
+   "language": "Rust",
+   "stars": 56,
+   "forks": 4,
+   "openIssues": 1,
+   "topics": [
+    "dfir",
+    "memory-forensics"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-30T00:00:00.000Z",
+   "pushedAt": "2026-11-01T00:00:00.000Z",
+   "updatedAt": "2026-11-01T00:00:00.000Z",
+   "firstSeen": "2026-10-30T00:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "digital-forensics"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000006,
+   "fullName": "demo-ficticio/ficticio-cloud-iam-lens",
+   "owner": "demo-ficticio",
+   "name": "ficticio-cloud-iam-lens",
+   "url": "https://demo-ficticio.invalid/ficticio-cloud-iam-lens",
+   "description": "[DEMO] Fictional IAM misconfiguration explorer for cloud accounts.",
+   "language": "Go",
+   "stars": 204,
+   "forks": 19,
+   "openIssues": 6,
+   "topics": [
+    "aws-security",
+    "cloud-security",
+    "iam"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-10-29T04:00:00.000Z",
+   "pushedAt": "2026-11-01T02:00:00.000Z",
+   "updatedAt": "2026-11-01T02:00:00.000Z",
+   "firstSeen": "2026-10-29T04:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "cloud-security"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000007,
+   "fullName": "demo-ficticio/ficticio-xss-lab-arena",
+   "owner": "demo-ficticio",
+   "name": "ficticio-xss-lab-arena",
+   "url": "https://demo-ficticio.invalid/ficticio-xss-lab-arena",
+   "description": "[DEMO] Fictional deliberately vulnerable web app for XSS practice.",
+   "language": "JavaScript",
+   "stars": 35,
+   "forks": 9,
+   "openIssues": 3,
+   "topics": [
+    "ctf",
+    "web-security",
+    "xss"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-28T08:00:00.000Z",
+   "pushedAt": "2026-10-30T10:00:00.000Z",
+   "updatedAt": "2026-10-30T10:00:00.000Z",
+   "firstSeen": "2026-10-28T08:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "web-security",
+    "ethical-hacking"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000008,
+   "fullName": "demo-ficticio/ficticio-ghidra-notes-helper",
+   "owner": "demo-ficticio",
+   "name": "ficticio-ghidra-notes-helper",
+   "url": "https://demo-ficticio.invalid/ficticio-ghidra-notes-helper",
+   "description": "[DEMO] Fictional plugin that annotates functions during reverse engineering.",
+   "language": "Java",
+   "stars": 89,
+   "forks": 7,
+   "openIssues": 2,
+   "topics": [
+    "ghidra",
+    "reverse-engineering"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-27T02:00:00.000Z",
+   "pushedAt": "2026-10-31T06:00:00.000Z",
+   "updatedAt": "2026-10-31T06:00:00.000Z",
+   "firstSeen": "2026-10-27T02:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "reverse-engineering"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000009,
+   "fullName": "demo-ficticio/ficticio-c2-sim-lite",
+   "owner": "demo-ficticio",
+   "name": "ficticio-c2-sim-lite",
+   "url": "https://demo-ficticio.invalid/ficticio-c2-sim-lite",
+   "description": "[DEMO] Fictional command and control simulator for adversary emulation training.",
+   "language": "C#",
+   "stars": 450,
+   "forks": 61,
+   "openIssues": 20,
+   "topics": [
+    "adversary-emulation",
+    "c2",
+    "red-team"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-10-26T06:00:00.000Z",
+   "pushedAt": "2026-11-01T04:00:00.000Z",
+   "updatedAt": "2026-11-01T04:00:00.000Z",
+   "firstSeen": "2026-10-26T06:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "red-team"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000010,
+   "fullName": "demo-ficticio/ficticio-ioc-feed-normalizer",
+   "owner": "demo-ficticio",
+   "name": "ficticio-ioc-feed-normalizer",
+   "url": "https://demo-ficticio.invalid/ficticio-ioc-feed-normalizer",
+   "description": "[DEMO] Fictional threat intelligence feed normalizer (STIX in, CSV out).",
+   "language": "Python",
+   "stars": 23,
+   "forks": 3,
+   "openIssues": 1,
+   "topics": [
+    "ioc",
+    "stix",
+    "threat-intelligence"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-24T04:00:00.000Z",
+   "pushedAt": "2026-10-28T18:00:00.000Z",
+   "updatedAt": "2026-10-28T18:00:00.000Z",
+   "firstSeen": "2026-10-24T04:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "threat-intelligence"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000011,
+   "fullName": "demo-ficticio/ficticio-sandbox-report-viewer",
+   "owner": "demo-ficticio",
+   "name": "ficticio-sandbox-report-viewer",
+   "url": "https://demo-ficticio.invalid/ficticio-sandbox-report-viewer",
+   "description": "[DEMO] Fictional viewer for malware sandbox reports.",
+   "language": "Vue",
+   "stars": 61,
+   "forks": 6,
+   "openIssues": 2,
+   "topics": [
+    "malware-analysis",
+    "sandbox"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-21T16:00:00.000Z",
+   "pushedAt": "2026-10-28T08:00:00.000Z",
+   "updatedAt": "2026-10-28T08:00:00.000Z",
+   "firstSeen": "2026-10-21T16:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "malware-analysis"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000012,
+   "fullName": "demo-ficticio/ficticio-username-hunter-demo",
+   "owner": "demo-ficticio",
+   "name": "ficticio-username-hunter-demo",
+   "url": "https://demo-ficticio.invalid/ficticio-username-hunter-demo",
+   "description": "[DEMO] Fictional username search across public profiles.",
+   "language": "Python",
+   "stars": 512,
+   "forks": 70,
+   "openIssues": 23,
+   "topics": [
+    "osint",
+    "socmint"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-10-20T00:00:00.000Z",
+   "pushedAt": "2026-10-31T16:00:00.000Z",
+   "updatedAt": "2026-10-31T16:00:00.000Z",
+   "firstSeen": "2026-10-20T00:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "osint"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000013,
+   "fullName": "demo-ficticio/ficticio-k8s-policy-audit",
+   "owner": "demo-ficticio",
+   "name": "ficticio-k8s-policy-audit",
+   "url": "https://demo-ficticio.invalid/ficticio-k8s-policy-audit",
+   "description": "[DEMO] Fictional Kubernetes security policy auditor.",
+   "language": "Go",
+   "stars": 140,
+   "forks": 11,
+   "openIssues": 4,
+   "topics": [
+    "hardening",
+    "kubernetes-security"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-16T16:00:00.000Z",
+   "pushedAt": "2026-10-30T00:00:00.000Z",
+   "updatedAt": "2026-10-30T00:00:00.000Z",
+   "firstSeen": "2026-10-16T16:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "cloud-security",
+    "blue-team"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000014,
+   "fullName": "demo-ficticio/ficticio-burp-ext-sample",
+   "owner": "demo-ficticio",
+   "name": "ficticio-burp-ext-sample",
+   "url": "https://demo-ficticio.invalid/ficticio-burp-ext-sample",
+   "description": "[DEMO] Fictional Burp Suite extension that highlights interesting parameters.",
+   "language": "Kotlin",
+   "stars": 74,
+   "forks": 8,
+   "openIssues": 3,
+   "topics": [
+    "bug-bounty",
+    "burp-extensions"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-13T18:00:00.000Z",
+   "pushedAt": "2026-10-24T04:00:00.000Z",
+   "updatedAt": "2026-10-24T04:00:00.000Z",
+   "firstSeen": "2026-10-13T18:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "web-security",
+    "bug-bounty"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000015,
+   "fullName": "demo-ficticio/ficticio-ad-path-mapper",
+   "owner": "demo-ficticio",
+   "name": "ficticio-ad-path-mapper",
+   "url": "https://demo-ficticio.invalid/ficticio-ad-path-mapper",
+   "description": "[DEMO] Fictional Active Directory attack path visualizer.",
+   "language": "TypeScript",
+   "stars": 890,
+   "forks": 102,
+   "openIssues": 34,
+   "topics": [
+    "active-directory",
+    "pentesting"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-10-10T20:00:00.000Z",
+   "pushedAt": "2026-11-01T07:00:00.000Z",
+   "updatedAt": "2026-11-01T07:00:00.000Z",
+   "firstSeen": "2026-10-10T20:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "pentesting",
+    "red-team"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000016,
+   "fullName": "demo-ficticio/ficticio-ctf-toolbox-demo",
+   "owner": "demo-ficticio",
+   "name": "ficticio-ctf-toolbox-demo",
+   "url": "https://demo-ficticio.invalid/ficticio-ctf-toolbox-demo",
+   "description": "[DEMO] Fictional bundle of small CTF helper scripts.",
+   "language": "Shell",
+   "stars": 12,
+   "forks": 1,
+   "openIssues": 0,
+   "topics": [
+    "ctf",
+    "hacking"
+   ],
+   "license": null,
+   "createdAt": "2026-10-07T12:00:00.000Z",
+   "pushedAt": "2026-10-15T20:00:00.000Z",
+   "updatedAt": "2026-10-15T20:00:00.000Z",
+   "firstSeen": "2026-10-07T12:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "ethical-hacking"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000017,
+   "fullName": "demo-ficticio/ficticio-jailbreak-benchmark",
+   "owner": "demo-ficticio",
+   "name": "ficticio-jailbreak-benchmark",
+   "url": "https://demo-ficticio.invalid/ficticio-jailbreak-benchmark",
+   "description": "[DEMO] Fictional benchmark of LLM jailbreak resistance.",
+   "language": "Python",
+   "stars": 1340,
+   "forks": 150,
+   "openIssues": 50,
+   "topics": [
+    "ai-red-teaming",
+    "llm-jailbreak"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-10-03T08:00:00.000Z",
+   "pushedAt": "2026-10-31T21:00:00.000Z",
+   "updatedAt": "2026-10-31T21:00:00.000Z",
+   "firstSeen": "2026-10-03T08:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "ai-security"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000018,
+   "fullName": "demo-ficticio/ficticio-pcap-timeline",
+   "owner": "demo-ficticio",
+   "name": "ficticio-pcap-timeline",
+   "url": "https://demo-ficticio.invalid/ficticio-pcap-timeline",
+   "description": "[DEMO] Fictional network capture timeline builder for incident response.",
+   "language": "Rust",
+   "stars": 97,
+   "forks": 9,
+   "openIssues": 3,
+   "topics": [
+    "forensics",
+    "incident-response"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-09-25T00:00:00.000Z",
+   "pushedAt": "2026-10-29T14:00:00.000Z",
+   "updatedAt": "2026-10-29T14:00:00.000Z",
+   "firstSeen": "2026-09-25T00:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "digital-forensics",
+    "blue-team"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000019,
+   "fullName": "demo-ficticio/ficticio-firmware-unpacker-x",
+   "owner": "demo-ficticio",
+   "name": "ficticio-firmware-unpacker-x",
+   "url": "https://demo-ficticio.invalid/ficticio-firmware-unpacker-x",
+   "description": "[DEMO] Fictional firmware extraction and analysis helper.",
+   "language": "C",
+   "stars": 260,
+   "forks": 25,
+   "openIssues": 8,
+   "topics": [
+    "binary-analysis",
+    "firmware-analysis"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-09-16T16:00:00.000Z",
+   "pushedAt": "2026-10-26T16:00:00.000Z",
+   "updatedAt": "2026-10-26T16:00:00.000Z",
+   "firstSeen": "2026-09-16T16:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "reverse-engineering"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000020,
+   "fullName": "demo-ficticio/ficticio-phish-sim-trainer",
+   "owner": "demo-ficticio",
+   "name": "ficticio-phish-sim-trainer",
+   "url": "https://demo-ficticio.invalid/ficticio-phish-sim-trainer",
+   "description": "[DEMO] Fictional phishing simulation platform for awareness training.",
+   "language": "PHP",
+   "stars": 330,
+   "forks": 40,
+   "openIssues": 13,
+   "topics": [
+    "phishing",
+    "red-team"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-08-31T00:00:00.000Z",
+   "pushedAt": "2026-10-31T06:00:00.000Z",
+   "updatedAt": "2026-10-31T06:00:00.000Z",
+   "firstSeen": "2026-08-31T00:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "red-team"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000021,
+   "fullName": "demo-ficticio/ficticio-yara-forge-mini",
+   "owner": "demo-ficticio",
+   "name": "ficticio-yara-forge-mini",
+   "url": "https://demo-ficticio.invalid/ficticio-yara-forge-mini",
+   "description": "[DEMO] Fictional YARA rule builder with tests.",
+   "language": "Python",
+   "stars": 610,
+   "forks": 44,
+   "openIssues": 15,
+   "topics": [
+    "malware-detection",
+    "yara"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2026-08-18T12:00:00.000Z",
+   "pushedAt": "2026-10-30T12:00:00.000Z",
+   "updatedAt": "2026-10-30T12:00:00.000Z",
+   "firstSeen": "2026-08-18T12:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "malware-analysis",
+    "threat-intelligence"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000022,
+   "fullName": "demo-ficticio/ficticio-secure-headers-check",
+   "owner": "demo-ficticio",
+   "name": "ficticio-secure-headers-check",
+   "url": "https://demo-ficticio.invalid/ficticio-secure-headers-check",
+   "description": "[DEMO] Fictional HTTP security headers scanner.",
+   "language": "JavaScript",
+   "stars": 150,
+   "forks": 12,
+   "openIssues": 4,
+   "topics": [
+    "owasp",
+    "web-security"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-08-10T04:00:00.000Z",
+   "pushedAt": "2026-10-26T06:00:00.000Z",
+   "updatedAt": "2026-10-26T06:00:00.000Z",
+   "firstSeen": "2026-08-10T04:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "web-security"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000023,
+   "fullName": "demo-ficticio/ficticio-soc-dashboard-kit",
+   "owner": "demo-ficticio",
+   "name": "ficticio-soc-dashboard-kit",
+   "url": "https://demo-ficticio.invalid/ficticio-soc-dashboard-kit",
+   "description": "[DEMO] Fictional SOC dashboard starter for open source SIEMs.",
+   "language": "TypeScript",
+   "stars": 2100,
+   "forks": 230,
+   "openIssues": 77,
+   "topics": [
+    "siem",
+    "soc",
+    "wazuh"
+   ],
+   "license": "MIT",
+   "createdAt": "2026-04-07T04:00:00.000Z",
+   "pushedAt": "2026-10-31T10:00:00.000Z",
+   "updatedAt": "2026-10-31T10:00:00.000Z",
+   "firstSeen": "2026-08-10T04:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "blue-team"
+   ],
+   "flags": []
+  },
+  {
+   "id": 900000024,
+   "fullName": "demo-ficticio/ficticio-old-but-active-scanner",
+   "owner": "demo-ficticio",
+   "name": "ficticio-old-but-active-scanner",
+   "url": "https://demo-ficticio.invalid/ficticio-old-but-active-scanner",
+   "description": "[DEMO] Fictional older scanner that is still actively maintained (appears only in \"Recently updated\").",
+   "language": "Python",
+   "stars": 5400,
+   "forks": 800,
+   "openIssues": 267,
+   "topics": [
+    "security-tools",
+    "vulnerability-scanner"
+   ],
+   "license": "Apache-2.0",
+   "createdAt": "2024-07-21T04:00:00.000Z",
+   "pushedAt": "2026-11-01T09:00:00.000Z",
+   "updatedAt": "2026-11-01T09:00:00.000Z",
+   "firstSeen": "2026-08-10T04:00:00.000Z",
+   "lastSeen": "2026-11-01T12:00:00.000Z",
+   "categories": [
+    "cybersecurity",
+    "pentesting"
+   ],
+   "flags": []
+  }
+ ]
+}
