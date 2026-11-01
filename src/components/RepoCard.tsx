@@ -3,7 +3,8 @@ import { interpolate, useI18n } from '../i18n';
 import { compactNumber, formatDate, relativeTime } from '../lib/format';
 import { languageColor } from '../lib/languages';
 import { useTranslatedText } from '../hooks/useTranslation';
-import type { Repo } from '../lib/types';
+import { scrollToResults } from '../lib/scroll';
+import type { CategoryId, Repo } from '../lib/types';
 import { AlertIcon, BirthIcon, BookIcon, ExternalIcon, ForkIcon, PulseIcon, StarIcon } from './Icons';
 
 interface Props {
@@ -12,12 +13,13 @@ interface Props {
   favorite: boolean;
   demo: boolean;
   detailHref: string;
+  filterHref: (patch: { category?: CategoryId; query?: string }) => string;
   onToggleFavorite: (fullName: string) => void;
 }
 
 const MAX_TOPICS = 5;
 
-function RepoCardImpl({ repo, now, favorite, demo, detailHref, onToggleFavorite }: Props) {
+function RepoCardImpl({ repo, now, favorite, demo, detailHref, filterHref, onToggleFavorite }: Props) {
   const { t, locale } = useI18n();
   const favLabel = interpolate(favorite ? t.card.removeFavorite : t.card.addFavorite, { name: repo.fullName });
   const extraTopics = repo.topics.length - MAX_TOPICS;
@@ -47,9 +49,15 @@ function RepoCardImpl({ repo, now, favorite, demo, detailHref, onToggleFavorite 
           </p>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
             {repo.categories.slice(0, 2).map((c) => (
-              <span key={c} className="font-mono text-[11px] text-accent-dim">
+              <a
+                key={c}
+                href={filterHref({ category: c })}
+                onClick={scrollToResults}
+                title={interpolate(t.card.filterCategory, { name: t.categories[c] })}
+                className="relative z-10 rounded font-mono text-[11px] text-accent-dim hover:text-accent hover:underline"
+              >
                 #{t.categories[c]}
-              </span>
+              </a>
             ))}
           </div>
         </div>
@@ -94,8 +102,15 @@ function RepoCardImpl({ repo, now, favorite, demo, detailHref, onToggleFavorite 
       {repo.topics.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={t.detail.topics}>
           {repo.topics.slice(0, MAX_TOPICS).map((topic) => (
-            <li key={topic} className="chip">
-              {topic}
+            <li key={topic}>
+              <a
+                href={filterHref({ query: topic })}
+                onClick={scrollToResults}
+                title={interpolate(t.card.filterTopic, { name: topic })}
+                className="chip relative z-10 hover:border-line-strong hover:text-ink"
+              >
+                {topic}
+              </a>
             </li>
           ))}
           {extraTopics > 0 && <li className="chip text-faint">+{extraTopics}</li>}

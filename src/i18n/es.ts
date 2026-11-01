@@ -85,6 +85,8 @@ const es: Messages = {
     addFavorite: 'Guardar {name} en favoritos',
     removeFavorite: 'Quitar {name} de favoritos',
     details: 'Detalles',
+    filterCategory: 'Ver todos los repositorios de {name}',
+    filterTopic: 'Buscar el topic {name}',
     openGithub: 'GitHub',
     poc: 'PoC / exploit',
     pocTitle: 'Dice contener un exploit o prueba de concepto. Revisa el código con cuidado antes de usarlo.',
