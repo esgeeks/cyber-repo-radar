@@ -26,7 +26,7 @@ import {
   type TabId,
 } from './lib/filters';
 import { freshness } from './lib/format';
-import type { DatasetMeta, Repo } from './lib/types';
+import type { CategoryId, DatasetMeta, Repo } from './lib/types';
 import { buildHash, type HashState } from './lib/url-state';
 
 const PAGE_SIZE = 24;
@@ -46,6 +46,12 @@ export default function App() {
   const homeHref = hrefFor({ route: { name: 'home' } });
   const aboutHref = hrefFor({ route: { name: 'about' } });
   const privacyHref = hrefFor({ route: { name: 'privacy' } });
+  /** Link that applies a category or topic filter on the radar (keeps the current tab and other filters). */
+  const filterHref = useCallback(
+    (patch: { category?: CategoryId; query?: string }) =>
+      buildHash({ ...state, route: { name: 'home' }, filters: { ...state.filters, ...patch } }),
+    [state],
+  );
 
   const dataset = data.status === 'ready' ? data.data : null;
   const isDemo = dataset?.meta.demo ?? demo;
@@ -120,6 +126,7 @@ export default function App() {
             onToggleFavorite={toggle}
             onFilters={(next) => navigate({ ...state, filters: next, route: { name: 'home' } }, { replace: true })}
             detailHref={(fullName) => hrefFor({ route: { name: 'repo', fullName } })}
+            filterHref={filterHref}
           />
         )}
       </main>
@@ -132,6 +139,7 @@ export default function App() {
           now={new Date(dataset.meta.generatedAt).getTime()}
           favorite={favorites.has(route.fullName)}
           demo={dataset.meta.demo}
+          filterHref={filterHref}
           onToggleFavorite={toggle}
           onClose={() => navigate({ ...state, route: { name: 'home' } }, { replace: true })}
         />
@@ -154,9 +162,10 @@ interface RadarProps {
   onToggleFavorite: (fullName: string) => void;
   onFilters: (f: Filters) => void;
   detailHref: (fullName: string) => string;
+  filterHref: (patch: { category?: CategoryId; query?: string }) => string;
 }
 
-function Radar({ repos, generatedAt, meta, complete, fullError, onRetry, filters, favorites, onToggleFavorite, onFilters, detailHref }: RadarProps) {
+function Radar({ repos, generatedAt, meta, complete, fullError, onRetry, filters, favorites, onToggleFavorite, onFilters, detailHref, filterHref }: RadarProps) {
   const { t, locale } = useI18n();
   // Time windows are measured from the dataset generation time, so tabs stay consistent with the data.
   const now = useMemo(() => new Date(generatedAt).getTime(), [generatedAt]);
@@ -361,6 +370,7 @@ function Radar({ repos, generatedAt, meta, complete, fullError, onRetry, filters
                       favorite={favorites.has(repo.fullName)}
                       demo={meta.demo}
                       detailHref={detailHref(repo.fullName)}
+                      filterHref={filterHref}
                       onToggleFavorite={onToggleFavorite}
                     />
                   </FeedItem>

@@ -1,9 +1,10 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { useI18n } from '../i18n';
+import { interpolate, useI18n } from '../i18n';
 import { formatDateTime, relativeTime } from '../lib/format';
 import { languageColor } from '../lib/languages';
 import { useTranslatedText } from '../hooks/useTranslation';
-import type { Repo } from '../lib/types';
+import { scrollToResults } from '../lib/scroll';
+import type { CategoryId, Repo } from '../lib/types';
 import {
   AlertIcon,
   BirthIcon,
@@ -25,6 +26,7 @@ interface Props {
   now: number;
   favorite: boolean;
   demo: boolean;
+  filterHref: (patch: { category?: CategoryId; query?: string }) => string;
   onToggleFavorite: (fullName: string) => void;
   onClose: () => void;
 }
@@ -46,7 +48,7 @@ function DateRow({ icon, label, iso, now, accent }: { icon: ReactNode; label: st
 }
 
 /** Detail view rendered in a native modal <dialog> (focus trapping and Esc handled by the browser). */
-export function RepoDetail({ repo, fullName, now, favorite, demo, onToggleFavorite, onClose }: Props) {
+export function RepoDetail({ repo, fullName, now, favorite, demo, filterHref, onToggleFavorite, onClose }: Props) {
   const { t, locale } = useI18n();
   const ref = useRef<HTMLDialogElement>(null);
   const translated = useTranslatedText(repo?.description ?? null);
@@ -172,8 +174,15 @@ export function RepoDetail({ repo, fullName, now, favorite, demo, onToggleFavori
                   </h3>
                   <ul className="flex flex-wrap gap-1.5">
                     {repo.categories.map((c) => (
-                      <li key={c} className="chip border-accent/30 text-accent">
-                        #{t.categories[c]}
+                      <li key={c}>
+                        <a
+                          href={filterHref({ category: c })}
+                          onClick={scrollToResults}
+                          title={interpolate(t.card.filterCategory, { name: t.categories[c] })}
+                          className="chip border-accent/30 text-accent hover:bg-accent/10"
+                        >
+                          #{t.categories[c]}
+                        </a>
                       </li>
                     ))}
                   </ul>
@@ -195,8 +204,15 @@ export function RepoDetail({ repo, fullName, now, favorite, demo, onToggleFavori
                 {repo.topics.length ? (
                   <ul className="flex flex-wrap gap-1.5">
                     {repo.topics.map((topic) => (
-                      <li key={topic} className="chip">
-                        {topic}
+                      <li key={topic}>
+                        <a
+                          href={filterHref({ query: topic })}
+                          onClick={scrollToResults}
+                          title={interpolate(t.card.filterTopic, { name: topic })}
+                          className="chip hover:border-line-strong hover:text-ink"
+                        >
+                          {topic}
+                        </a>
                       </li>
                     ))}
                   </ul>

@@ -83,6 +83,8 @@ const en = {
     addFavorite: 'Save {name} to favorites',
     removeFavorite: 'Remove {name} from favorites',
     details: 'Details',
+    filterCategory: 'Show all {name} repositories',
+    filterTopic: 'Search the topic {name}',
     openGithub: 'GitHub',
     poc: 'PoC / exploit',
     pocTitle: 'Claims to contain an exploit or proof of concept. Review the code carefully before using it.',
