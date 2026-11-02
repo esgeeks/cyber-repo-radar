@@ -1,14 +1,29 @@
+# Dependency updates, kept low-noise:
+# - monthly instead of weekly
+# - all GitHub Actions updates in a single PR
+# - npm minor/patch updates grouped in a single PR; other majors arrive one by one for review
 version: 2
 updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     open-pull-requests-limit: 5
     groups:
-      dependencies:
-        patterns: ['*']
+      npm-minor-patch:
+        update-types: [minor, patch]
+    ignore:
+      # TypeScript majors (e.g. 5 -> 7) can break the build: upgrade manually after testing.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # Node.js type definitions must match the Node version the project runs on (22, see .nvmrc).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    groups:
+      github-actions:
+        patterns: ['*']
